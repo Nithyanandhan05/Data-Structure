@@ -1,24 +1,56 @@
 #include <stdio.h>
 
-int main() {
-    int arr1[] = {1, 2, 3, 4, 5};
-    int size1 = sizeof(arr1) / sizeof(arr1[0]);
+void mergeArrays(int arr1[], int size1, int arr2[], int size2, int result[]) {
+    int i = 0, j = 0, k = 0;
 
-    int arr2[] = {6, 7, 8, 9, 10};
-    int size2 = sizeof(arr2) / sizeof(arr2[0]);
-    int i;
-    int merged[size1 + size2]; 
-    for (i = 0; i < size1; i++) {
-        merged[i] = arr1[i];
+    while (i < size1 && j < size2) {
+        if (arr1[i] < arr2[j]) {
+            result[k++] = arr1[i++];
+        } else {
+            result[k++] = arr2[j++];
+        }
     }
-    for (i = 0; i < size2; i++) {
-        merged[size1 + i] = arr2[i];
+
+    while (i < size1) {
+        result[k++] = arr1[i++];
     }
-    int mergedSize = size1 + size2;
-    printf("Merged Array: ");
-    for (i = 0; i < mergedSize; i++) {
-        printf("%d ", merged[i]);
+
+    while (j < size2) {
+        result[k++] = arr2[j++];
     }
-    return 0;
 }
 
+int main() {
+    int size1, size2;
+
+    printf("Enter size of the first array: ");
+    scanf("%d", &size1);
+
+    int arr1[size1];
+    printf("Enter elements of the first array: ");
+    for (int i = 0; i < size1; i++) {
+        scanf("%d", &arr1[i]);
+    }
+
+    printf("Enter size of the second array: ");
+    scanf("%d", &size2);
+
+    int arr2[size2];
+    printf("Enter elements of the second array: ");
+    for (int i = 0; i < size2; i++) {
+        scanf("%d", &arr2[i]);
+    }
+
+    int mergedSize = size1 + size2;
+    int merged[mergedSize];
+
+    mergeArrays(arr1, size1, arr2, size2, merged);
+
+    printf("Merged Array: ");
+    for (int i = 0; i < mergedSize; i++) {
+        printf("%d ", merged[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
